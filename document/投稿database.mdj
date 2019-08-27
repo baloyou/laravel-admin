@@ -1,0 +1,172 @@
+{
+	"_type": "Project",
+	"_id": "AAAAAAFF+h6SjaM2Hec=",
+	"name": "Untitled",
+	"ownedElements": [
+		{
+			"_type": "ERDDataModel",
+			"_id": "AAAAAAFLzntJC6EktCk=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "Data Model",
+			"ownedElements": [
+				{
+					"_type": "ERDEntity",
+					"_id": "AAAAAAFszH4Qa26U/s4=",
+					"_parent": {
+						"$ref": "AAAAAAFLzntJC6EktCk="
+					},
+					"name": "user",
+					"columns": [
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAFszH5JC26j12Y=",
+							"_parent": {
+								"$ref": "AAAAAAFszH4Qa26U/s4="
+							},
+							"name": "id",
+							"length": 0
+						},
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAFszH7nrG6q2IY=",
+							"_parent": {
+								"$ref": "AAAAAAFszH4Qa26U/s4="
+							},
+							"name": "login_name",
+							"type": "var",
+							"length": 0
+						},
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAFszH8c8G6xFX4=",
+							"_parent": {
+								"$ref": "AAAAAAFszH4Qa26U/s4="
+							},
+							"name": "login_password",
+							"type": "varchar",
+							"length": "50"
+						}
+					]
+				},
+				{
+					"_type": "ERDDiagram",
+					"_id": "AAAAAAFszIbOTm7NynY=",
+					"_parent": {
+						"$ref": "AAAAAAFLzntJC6EktCk="
+					},
+					"name": "ERDDiagram1",
+					"ownedViews": [
+						{
+							"_type": "ERDEntityView",
+							"_id": "AAAAAAFszIbdZm7RYGg=",
+							"_parent": {
+								"$ref": "AAAAAAFszIbOTm7NynY="
+							},
+							"model": {
+								"$ref": "AAAAAAFszH4Qa26U/s4="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAFszIbdZm7SGu0=",
+									"_parent": {
+										"$ref": "AAAAAAFszIbdZm7RYGg="
+									},
+									"font": "Arial;13;1",
+									"left": 202,
+									"top": 242,
+									"width": 199.05712890625,
+									"height": 13,
+									"text": "user"
+								},
+								{
+									"_type": "ERDColumnCompartmentView",
+									"_id": "AAAAAAFszIbdZm7ThIA=",
+									"_parent": {
+										"$ref": "AAAAAAFszIbdZm7RYGg="
+									},
+									"model": {
+										"$ref": "AAAAAAFszH4Qa26U/s4="
+									},
+									"subViews": [
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAFszIbdeW7aS+Y=",
+											"_parent": {
+												"$ref": "AAAAAAFszIbdZm7ThIA="
+											},
+											"model": {
+												"$ref": "AAAAAAFszH5JC26j12Y="
+											},
+											"font": "Arial;13;0",
+											"left": 207,
+											"top": 265,
+											"width": 189.05712890625,
+											"height": 13
+										},
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAFszIbdeW7d9fE=",
+											"_parent": {
+												"$ref": "AAAAAAFszIbdZm7ThIA="
+											},
+											"model": {
+												"$ref": "AAAAAAFszH7nrG6q2IY="
+											},
+											"font": "Arial;13;0",
+											"left": 207,
+											"top": 280,
+											"width": 189.05712890625,
+											"height": 13
+										},
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAFszIbdeW7gBvM=",
+											"_parent": {
+												"$ref": "AAAAAAFszIbdZm7ThIA="
+											},
+											"model": {
+												"$ref": "AAAAAAFszH8c8G6xFX4="
+											},
+											"font": "Arial;13;0",
+											"left": 207,
+											"top": 295,
+											"width": 189.05712890625,
+											"height": 13
+										}
+									],
+									"font": "Arial;13;0",
+									"left": 202,
+									"top": 260,
+									"width": 199.05712890625,
+									"height": 53
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 202,
+							"top": 237,
+							"width": 199.05712890625,
+							"height": 76,
+							"nameLabel": {
+								"$ref": "AAAAAAFszIbdZm7SGu0="
+							},
+							"columnCompartment": {
+								"$ref": "AAAAAAFszIbdZm7ThIA="
+							}
+						}
+					]
+				},
+				{
+					"_type": "ERDEntity",
+					"_id": "AAAAAAFszIdIdm7jMv4=",
+					"_parent": {
+						"$ref": "AAAAAAFLzntJC6EktCk="
+					},
+					"name": "group"
+				}
+			]
+		}
+	]
+}
