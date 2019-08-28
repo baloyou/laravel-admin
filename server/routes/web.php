@@ -24,7 +24,7 @@ Route::post('admin/login', 'Auth\LoginController@login');
 Route::prefix(config('project.admin_path'))->group(function(){
 
 
-    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+    Route::get('logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('home', 'HomeController@index')->name('home');
 });
 
