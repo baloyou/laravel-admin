@@ -25,12 +25,20 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(User $user)
+    public function index()
     {
         // $role = Role::create(['name'=>'writer']);
-        $role = Role::find(1);
-        $permission = Permission::find(1);
-        $role->givePermissionTo( $permission );
+        // $role = Role::find(1);
+        // $permission = Permission::find(5);
+        // $role->givePermissionTo( $permission );
+
+        $user = User::find(1);
+        $pms = $user->getAllPermissions();
+        dump($pms);
+        // $user->assignRole('writer');
+
+        // $users = User::role('writer')->get();
+        // dump($users);
         // $permission = Permission::create(['name'=>'edit articles']);
         return view('home');
     }

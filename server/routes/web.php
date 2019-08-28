@@ -17,4 +17,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
+/**
+ * 1、先实现对整个文章模块的权限约束(permission:articles)
+ */
+Route::middleware(['permission:articles'])->group(function () {
+    Route::get('/a', function () {
+        return '删除';
+    })->middleware('permission:delete articles');
+
+    Route::get('/b', function () {
+        return '修改';
+    });
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
