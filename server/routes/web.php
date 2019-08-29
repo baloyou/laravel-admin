@@ -93,7 +93,7 @@ Route::prefix(config('project.admin_path'))->middleware('auth')->group(function(
 });
 
 /**
- * 1、先实现对整个文章模块的权限约束(permission:articles)
+ * 用来调试权限的路由
  */
 Route::middleware(['permission:articles'])->group(function () {
     Route::get('/a', function () {

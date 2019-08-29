@@ -14,8 +14,10 @@ class AddLoginNameToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
-            $table->string('login_name',50)->after('name')->unique();
+            //登陆名
+            $table->string('login_name',100)->after('name')->unique()->default('');
+            //手机号
+            $table->string('phone',50)->after('email')->unique()->default('');
         });
     }
 

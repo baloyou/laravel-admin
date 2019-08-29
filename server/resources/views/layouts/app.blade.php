@@ -12,12 +12,12 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/sb-admin.min.js') }}?<?php echo microtime();?>" defer></script>
+    <script src="{{ asset('js/sb-admin.min.js') }}?<?php echo microtime(); ?>" defer></script>
     <!-- Styles -->
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/blackrockdigital.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/project.css') }}?<?php echo microtime();?>" rel="stylesheet">
+    <link href="{{ asset('css/project.css') }}?<?php echo microtime(); ?>" rel="stylesheet">
 </head>
 
 <body>
@@ -67,11 +67,11 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-fw fa-folder"></i>
+                    <i class="fas fa-fw fa-users"></i>
                     <span>用户管理</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                    <a class="dropdown-item" href="login.html">所有用户</a>
+                    <a class="dropdown-item" href="{{route('user')}}">所有用户</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="register.html">用户分组</a>
                     <a class="dropdown-item" href="forgot-password.html">权限查看</a>
@@ -79,7 +79,7 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-fw fa-folder"></i>
+                    <i class="fas fa-fw fa-file-word"></i>
                     <span>稿件管理</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="pagesDropdown">
@@ -93,7 +93,8 @@
 
         <div id="content-wrapper">
             <div class="container-fluid">
-                @yield('content')
+                @section('content')
+                @show
             </div>
         </div>
         <!-- /.container-fluid -->
