@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPidToPermissionsTable extends Migration
+class AddFieldsToRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class AddPidToPermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::table('permissions', function (Blueprint $table) {
-            //上级权限
-            $table->integer('pid')->after('id');
-            //备注
-            $table->string('remark',255)->after('guard_name')->default('');
+        Schema::table('roles', function (Blueprint $table) {
+            //中文名称，PS：似乎并不需要，放弃吧
+            //$table->string('namecn',150)->after('name');
         });
     }
 
@@ -28,7 +26,7 @@ class AddPidToPermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('permissions', function (Blueprint $table) {
+        Schema::table('roles', function (Blueprint $table) {
             //
         });
     }

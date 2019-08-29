@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPidToPermissionsTable extends Migration
+class AddFieldsToPermissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,8 @@ class AddPidToPermissionsTable extends Migration
     public function up()
     {
         Schema::table('permissions', function (Blueprint $table) {
-            //上级权限
-            $table->integer('pid')->after('id');
-            //备注
-            $table->string('remark',255)->after('guard_name')->default('');
+            //为权限定义一个中文名字
+            $table->string('namecn',150)->after('name');
         });
     }
 

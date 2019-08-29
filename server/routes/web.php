@@ -11,6 +11,9 @@
 |
 */
 
+use App\User;
+use Illuminate\Support\Facades\Auth;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -92,14 +95,18 @@ Route::prefix(config('project.admin_path'))->middleware('auth')->group(function(
 /**
  * 1、先实现对整个文章模块的权限约束(permission:articles)
  */
-// Route::middleware(['permission:articles'])->group(function () {
-//     Route::get('/a', function () {
-//         return '删除';
-//     })->middleware('permission:delete articles');
+Route::middleware(['permission:articles'])->group(function () {
+    Route::get('/a', function () {
+        $user = Auth::user();
+        dump($user->id, $user->can('articles'));
+        return '删除';
+    })->middleware('permission:delete articles');
 
-//     Route::get('/b', function () {
-//         return '修改';
-//     });
-// });
+    Route::get('/b', function () {
+        $user = Auth::user();
+        dump($user->id, $user->can('test'));
+        return '修改';
+    });
+});
 
 // Route::get('/home', 'HomeController@index')->name('home');
