@@ -14,7 +14,10 @@ class AddPidToPermissionsTable extends Migration
     public function up()
     {
         Schema::table('permissions', function (Blueprint $table) {
+            //上级权限
             $table->integer('pid')->after('id');
+            //备注
+            $table->string('remark',255)->after('guard_name');
         });
     }
 

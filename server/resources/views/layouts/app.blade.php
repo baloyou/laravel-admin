@@ -12,11 +12,12 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/sb-admin.min.js') }}" defer></script>
+    <script src="{{ asset('js/sb-admin.min.js') }}?<?php echo microtime();?>" defer></script>
     <!-- Styles -->
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/project.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/blackrockdigital.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/project.css') }}?<?php echo microtime();?>" rel="stylesheet">
 </head>
 
 <body>
@@ -35,7 +36,7 @@
                     <a class="dropdown-item" href="#">Settings</a>
                     <a class="dropdown-item" href="#">Activity Log</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{route('logout')}}" data-toggle="modal" data-target="#logoutModal">退出</a>
+                    <a class="dropdown-item" href="{{route('logout')}}">退出</a>
                 </div>
             </li>
         </ul>
@@ -45,7 +46,7 @@
         <!-- Sidebar -->
         <ul class="sidebar navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{route('home')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>控制中心</span>
                 </a>
@@ -82,7 +83,7 @@
                     <span>稿件管理</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                <a class="dropdown-item" href="login.html">所有稿件</a>
+                    <a class="dropdown-item" href="login.html">所有稿件</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="register.html">待审稿件</a>
                     <a class="dropdown-item" href="forgot-password.html">待发稿件</a>
