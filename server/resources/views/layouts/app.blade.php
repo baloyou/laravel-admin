@@ -75,7 +75,7 @@
                     <a class="dropdown-item" href="{{route('user')}}">所有用户</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{route('role')}}">分组管理</a>
-                    <a class="dropdown-item" href="forgot-password.html">权限查看</a>
+                    <!-- <a class="dropdown-item" href="forgot-password.html">权限查看</a> -->
                 </div>
             </li>
             <li class="nav-item dropdown">

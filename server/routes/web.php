@@ -47,8 +47,9 @@ Route::prefix(config('project.admin_path'))->middleware('auth')->group(function(
         Route::get('', 'UserController@index')->name('user');
         //增加用户（超管）
         Route::get('add', 'UserController@add')->name('user-add');
+        Route::post('save', 'UserController@save')->name('user-save');
         //编辑用户（自己/超管）
-        Route::get('modify', 'UserController@modify')->name('user-modify');
+        // Route::get('modify', 'UserController@modify')->name('user-modify');
         //禁用用户（超管）
         Route::get('state', 'UserController@state')->name('user-state');
         //用户详细（自己、旗下用户）
@@ -62,7 +63,7 @@ Route::prefix(config('project.admin_path'))->middleware('auth')->group(function(
         //添加
         Route::get('add', 'RoleController@add')->name('role-add');
         //编辑
-        Route::get('modify', 'RoleController@modify')->name('role-modify');
+        // Route::get('modify', 'RoleController@modify')->name('role-modify');
         //保存修改结果（添加 and 修改，都是走这个方法）
         Route::post('save', 'RoleController@save')->name('role-save');
         //软删除（如果旗下有用户，则不能删除）

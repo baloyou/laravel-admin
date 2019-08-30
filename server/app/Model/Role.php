@@ -34,4 +34,13 @@ class Role extends SpatieRole{
         $role->givePermissionTo($pmts);
         return $role;
     }
+
+    /**
+     * 返回所有可用分组，就是带了个排序
+     *
+     * @return void
+     */
+    public function getRoles(){
+        return $this->orderBy("id",'asc')->get();
+    }
 }

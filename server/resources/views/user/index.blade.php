@@ -5,7 +5,7 @@
 @component('components.subtitle')
 <i class="fas fa-users fa-fw"></i> 所有用户
 @slot('bnts')
-<a href='' class='btn btn-primary'>
+<a href='{{route("user-add")}}' class='btn btn-primary'>
     <i class="fas fa-plus-square fa-fw"></i> 添加
 </a>
 @endslot
@@ -59,7 +59,7 @@
                     <td>{{$user->email}}</td>
                     <td>{{$user->phone}}</td>
                     <td>{{$user->created_at}}</td>
-                    <td>编辑</td>
+                    <td><a class='btn btn-sm btn-secondary' href='{{route("user-add",["id"=>$user->id])}}'>编辑</a></td>
                 </tr>
                 @endforeach
             </tbody>

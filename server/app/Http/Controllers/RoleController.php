@@ -12,9 +12,9 @@ class RoleController extends Controller
 {
     public function index(Request $r)
     {
-        $roles = Role::get();
+        $role = new Role;
         $data = [
-            'roles' => $roles,
+            'roles' => $role->getRoles(),
         ];
         return view('role.index', $data);
     }
