@@ -15,6 +15,7 @@
     <div class='col-xl-6 col-md-12'>
         <form action='{{route("role-save")}}' method='post'>
             @csrf
+            <input type='hidden' name='id' value='{{$form["id"]}}' />
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">分组名称</label>
                 <div class="col-sm-10">

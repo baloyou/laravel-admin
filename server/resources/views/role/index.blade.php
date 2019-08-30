@@ -29,7 +29,9 @@
                     <td>{{$role->name}}
                     </td>
                     <td>{{$role->created_at}}</td>
-                    <td>编辑</td>
+                    <td>
+                        <a class='btn btn-sm btn-secondary' href='{{route("role-add",["id"=>$role->id])}}'>编辑</a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

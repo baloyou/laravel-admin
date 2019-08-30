@@ -14,8 +14,20 @@ class Role extends SpatieRole{
      * @param [type] $data
      * @return void
      */
-    public function in(array $data){
-        //检查角色名是否存在
-        return $this->create($data);
+    public function in($id, array $data, $pmts=[]){
+
+        if( $id>0 ){
+            $role = $this->where('id',$id)->first();
+            $role->update( $data );
+            //移除原有权限
+            $role->permissions()->detach();
+        }else{
+            $role = $this->create($data);
+        }
+
+        //为角色追加权限
+        $pmts = Permission::whereIn('id', $pmts)->get();
+        $role->givePermissionTo($pmts);
+        return $role;
     }
 }
