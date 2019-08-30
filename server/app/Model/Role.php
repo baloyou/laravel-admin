@@ -10,16 +10,20 @@ use Spatie\Permission\Models\Role as SpatieRole;
 class Role extends SpatieRole{
     
     /**
-     * 增加角色
-     * @param [type] $data
-     * @return void
+     * 添加、修改角色
+     * 编辑模式下，会移除原有权限
+     * 添加模式下，先创建角色，再写入权限的多对多关系
+     * @param [int]     $role_id    =0 表示新建，否则编辑目标角色id
+     * @param [array]   $data   角色基本信息
+     * @param [array]   $pmts   选中的权限列表
+     * @return object Role
      */
-    public function in($id, array $data, $pmts=[]){
-
-        if( $id>0 ){
-            $role = $this->where('id',$id)->first();
+    public function in($role_id, array $data, $pmts=[]){
+        
+        //创建/更新 角色基本信息
+        if( $role_id>0 ){
+            $role = $this->where('id',$role_id)->first();
             $role->update( $data );
-            //移除原有权限
             $role->permissions()->detach();
         }else{
             $role = $this->create($data);
