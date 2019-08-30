@@ -8,14 +8,15 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'admin panel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/sb-admin.min.js') }}?<?php echo microtime(); ?>" defer></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src='https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js'></script>
+    <script src="{{ asset('js/sb-admin.min.js') }}"></script>
     <!-- Styles -->
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/blackrockdigital.css') }}" rel="stylesheet">
     <link href="{{ asset('css/project.css') }}?<?php echo microtime(); ?>" rel="stylesheet">
 </head>
@@ -73,7 +74,7 @@
                 <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                     <a class="dropdown-item" href="{{route('user')}}">所有用户</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="register.html">用户分组</a>
+                    <a class="dropdown-item" href="{{route('role')}}">分组管理</a>
                     <a class="dropdown-item" href="forgot-password.html">权限查看</a>
                 </div>
             </li>
@@ -90,9 +91,26 @@
                 </div>
             </li>
         </ul>
-
         <div id="content-wrapper">
             <div class="container-fluid">
+                @if (session('msg'))
+                <div style="position: relative;">
+                    <div class="toast bg-warning" role="alert" data-autohide='true' data-delay="2000" style="position: absolute; top: 0; left: 0;z-index:1001;max-width:none;">
+                        <div class="toast-header">
+                            <i class="fas fa-fw fa-exclamation-circle"></i>  
+                            <strong class="mr-auto">信息提示</strong>
+                        </div>
+                        <div class="toast-body" style='width:400px;'>
+                            {{session('msg')}}
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    $(document).ready(function() {
+                        $(".toast").toast('show');
+                    });
+                </script>
+                @endif
                 @section('content')
                 @show
             </div>

@@ -7,6 +7,10 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
+/**
+ * 这个模型换文件夹太麻烦，就懒得换了。
+ */
+
 class User extends Authenticatable
 {
     use Notifiable;

@@ -56,15 +56,17 @@ Route::prefix(config('project.admin_path'))->middleware('auth')->group(function(
     });
 
     //用户组（超管权限）
-    Route::prefix('group')->group(function(){
+    Route::prefix('role')->group(function(){
         //列表
-        Route::get('', 'GroupController@index')->name('group');
+        Route::get('', 'RoleController@index')->name('role');
         //添加
-        Route::get('add', 'GroupController@add')->name('group-add');
+        Route::get('add', 'RoleController@add')->name('role-add');
         //编辑
-        Route::get('modify', 'GroupController@modify')->name('group-modify');
+        Route::get('modify', 'RoleController@modify')->name('role-modify');
+        //保存修改结果（添加 and 修改，都是走这个方法）
+        Route::post('save', 'RoleController@save')->name('role-save');
         //软删除（如果旗下有用户，则不能删除）
-        Route::get('remove', 'GroupController@remove')->name('group-remove');
+        Route::get('remove', 'RoleController@remove')->name('role-remove');
     });
 
     //数据管理（稿件）
