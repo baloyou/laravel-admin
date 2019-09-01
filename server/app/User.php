@@ -20,7 +20,7 @@ class User extends Authenticatable
 
     /**
      * The attributes that are mass assignable.
-     *
+     * 想使用 $r->all() 简洁插入，这个设置必不可少（不在此列的字段不允许更新和写入）
      * @var array
      */
     protected $fillable = [
@@ -46,17 +46,22 @@ class User extends Authenticatable
     ];
 
     /**
-     * 编辑用户信息
+     * (新建/编辑)用户信息
      *
      * @param [type] $user_id
      * @param array $data
      * @param array $roles
      * @return void
      */
-    public function in($user_id, array $data, $roles=[]){
+    public function in(array $data){
 
-        //编辑模式，可能没有密码字段
-        if(isset($data['password'])){
+        $user_id = $data['id'];
+        $roles = is_array($data['input_roles']) ? $data['input_roles'] : [];
+
+        //如果处于编辑模式，并且密码字段为空，密码保持原样
+        if( $data['password'] == '' ){
+            unset($data['password']);
+        }else{
             $data['password'] = Hash::make($data['password']);
         }
         

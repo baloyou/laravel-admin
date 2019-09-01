@@ -22,7 +22,7 @@
                 <div class="col-sm-10">
                     <input name='login_name' type="text" class="form-control" id="login_name" placeholder="请输入字母、数字、下划线组合" value='{{$form["login_name"]}}'>
                     @if($errors->has('login_name'))
-                    <span class='text-danger'>{{$errors->first('login_name')}}</span>
+                    <span class='text-danger form-error'>{{$errors->first('login_name')}}</span>
                     @endif
                 </div>
             </div>
@@ -32,7 +32,7 @@
                 <div class="col-sm-10">
                     <input name='password' type="password" class="form-control" id="password" placeholder="请输入至少8位密码" value='{{$form["password"]}}'>
                     @if($errors->has('password'))
-                    <span class='text-danger'>{{$errors->first('password')}}</span>
+                    <span class='text-danger form-error'>{{$errors->first('password')}}</span>
                     @endif
                 </div>
             </div>
@@ -42,7 +42,7 @@
                 <div class="col-sm-10">
                     <input name='name' type="text" class="form-control" id="name" placeholder="" value='{{$form["name"]}}'>
                     @if($errors->has('name'))
-                    <span class='text-danger'>{{$errors->first('name')}}</span>
+                    <span class='text-danger form-error'>{{$errors->first('name')}}</span>
                     @endif
                 </div>
             </div>
@@ -52,7 +52,7 @@
                 <div class="col-sm-10">
                     <input name='email' type="text" class="form-control" id="email" placeholder="" value='{{$form["email"]}}'>
                     @if($errors->has('email'))
-                    <span class='text-danger'>{{$errors->first('email')}}</span>
+                    <span class='text-danger form-error'>{{$errors->first('email')}}</span>
                     @endif
                 </div>
             </div>
@@ -62,7 +62,7 @@
                 <div class="col-sm-10">
                     <input name='phone' type="text" class="form-control" id="phone" placeholder="" value='{{$form["phone"]}}'>
                     @if($errors->has('phone'))
-                    <span class='text-danger'>{{$errors->first('phone')}}</span>
+                    <span class='text-danger form-error'>{{$errors->first('phone')}}</span>
                     @endif
                 </div>
             </div>
@@ -82,7 +82,7 @@
                     </div>
                     @endforeach
                 @if($errors->has('input_roles'))
-                    <p class='text-danger'>{{$errors->first('input_roles')}}</p>
+                    <p class='text-danger form-error'>{{$errors->first('input_roles')}}</p>
                 @endif
                 </div>
             </div>

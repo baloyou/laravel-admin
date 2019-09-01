@@ -8,7 +8,10 @@ use Spatie\Permission\Models\Role as SpatieRole;
  * 为了方便管理，做一个自己的 Role
  */
 class Role extends SpatieRole{
-    
+
+    protected $fillable = [
+        'name','guard_name'
+    ];    
     /**
      * 添加、修改角色
      * 编辑模式下，会移除原有权限
@@ -18,8 +21,11 @@ class Role extends SpatieRole{
      * @param [array]   $pmts   选中的权限列表
      * @return object Role
      */
-    public function in($role_id, array $data, $pmts=[]){
+    public function in( array $data){
         
+        $role_id = $data['id'];
+        $pmts = isset($data['input_pmts']) ? $data['input_pmts'] : [];
+
         //创建/更新 角色基本信息
         if( $role_id>0 ){
             $role = $this->where('id',$role_id)->first();

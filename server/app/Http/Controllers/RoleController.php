@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RoleValidate;
 use App\Model\Role;
 use App\Model\Permission;
 use Illuminate\Http\Request;
@@ -19,6 +20,12 @@ class RoleController extends Controller
         return view('role.index', $data);
     }
 
+    /**
+     * 角色添加UI
+     *
+     * @param Request $r
+     * @return void
+     */
     public function add(Request $r)
     {
         $id = $r->input('id',0);
@@ -54,41 +61,19 @@ class RoleController extends Controller
     }
 
     /**
-     * 如果是修改角色，则面临着大量的权限重组，这块要看下文档怎么处理
+     * 保存角色新建、编辑结果
      *
      * @param Request $r
      * @return void
      */
-    public function save(Request $r)
+    public function save(RoleValidate $r)
     {   
-        $id = $r->input('id',0);
-        $name = $r->input('name','');
-        $input_pmts = $r->input('input_pmts',[]);
-
-        /**
-         * 数据验证，包含名称唯一性的验证，
-         * 注意：编辑模式下允许与自身原名重复。
-         */
-        $rules = [
-            'name'  => ['required', 'max:255'],
-            'input_pmts'  => ['required'],
-        ];
-
-        //there are edit mode to ignore  itself’s name
-        $name_unique = Rule::unique('roles');
-        if( $id>0 ){
-            $name_unique = $name_unique->ignore($id);
-        }
-        $rules['name'][] = $name_unique;
-
-        //验证（同时验证了角色唯一性）
-        Validator::make($r->all(), $rules)->validate();
+        $r->validated();
         
         //数据写入
         try {
             $role = new Role();
-            //in方法，包含了赋权
-            $role = $role->in($id, ['name' => $name], $input_pmts);
+            $role = $role->in($r->all());
         } catch (\Exception $e) {
             return back()->with('msg', $e->getMessage());
         }

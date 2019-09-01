@@ -22,7 +22,7 @@
                     <input name='name' type="text" class="form-control" id="name" placeholder="请注意，分组名称不能重复" value='{{$form["name"]}}'>
 
                     @if($errors->has('name'))
-                    <span class='text-danger'>{{$errors->first('name')}}</span>
+                    <span class='text-danger form-error'>{{$errors->first('name')}}</span>
                     @endif
 
                 </div>
@@ -35,7 +35,7 @@
                         <input name='pmts' class="form-check-input" type="checkbox" id="box_all">
                         <label class="form-check-label" for="box_all">全选</label>
                         @if($errors->has('input_pmts'))
-                        <span class='text-danger'>{{$errors->first('input_pmts')}}</span>
+                         <span class='text-danger form-error'>{{$errors->first('input_pmts')}}</span>
                         @endif
                     </div>
                     <hr />
