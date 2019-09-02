@@ -32,8 +32,8 @@ class HomeController extends Controller
         // $permission = Permission::find(5);
         // $role->givePermissionTo( $permission );
 
-        $user = User::find(1);
-        $pms = $user->getAllPermissions();
+        // $user = User::find(1);
+        // $pms = $user->getAllPermissions();
         // dump($pms);
         // $user->assignRole('writer');
 

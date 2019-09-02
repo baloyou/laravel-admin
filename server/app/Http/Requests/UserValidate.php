@@ -19,7 +19,7 @@ class UserValidate extends FormRequest
 
         $rules = [
             'name'  => ['required', 'max:255'],
-            'login_name'  => ['required', 'max:255'],
+            'login_name'  => ['required', 'alpha_dash', 'max:255'],
             // 'password'  => ['required', 'max:255'], （只有新增情况才验证密码字段）
             'email'  => ['required', 'max:255'],
             'phone'  => ['required', 'max:255'],

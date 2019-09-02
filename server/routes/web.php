@@ -11,7 +11,6 @@
 |
 */
 
-use App\User;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
@@ -25,7 +24,7 @@ Route::get('admin/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('admin/login', 'Auth\LoginController@login');
 
 //授权登陆的用户
-Route::prefix(config('project.admin_path'))->middleware('auth')->group(function(){
+Route::prefix(config('project.admin_path'))->middleware('auth','\App\Http\Middleware\CheckUserState')->group(function(){
 
     //所有人可见
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');

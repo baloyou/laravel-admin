@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 // use Illuminate\Support\Facades\Request;
 use Illuminate\Http\Request;
@@ -59,5 +60,17 @@ class LoginController extends Controller
         $request->session()->invalidate();
 
         return $this->loggedOut($request) ?: redirect()->route('login');
+    }
+
+    /**
+     * 重写验证方法，在登录时追加用户状态的验证条件
+     * @param Request $r
+     * @return void
+     */
+    protected function attemptLogin(Request $r)
+    {
+        $credential = $r->only($this->username(), 'password');
+        // $credential['state']    = User::STATE_NORMAL;
+        return $this->guard()->attempt( $credential, $r->filled('remember'));
     }
 }
