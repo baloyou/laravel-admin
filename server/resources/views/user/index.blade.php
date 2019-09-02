@@ -52,14 +52,14 @@
 
                     </td>
                     <td>
-                    @foreach($user->roles as $role)
-                        {{$role->name}}<br/>
-                    @endforeach
+                        @foreach($user->roles as $role)
+                        {{$role->name}}<br />
+                        @endforeach
                     </td>
                     <td>{{$user->login_name}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->phone}}</td>
-                    <td>{!!$user->state_text!!}</td>
+                    <td><a href='#' class='btn_confirm' data-msg='你正在切换用户状态（被禁用的账号不能登陆系统）' data-href='{{route("user-state",["id"=>$user->id])}}'>{!!$user->state_text!!}</a></td>
                     <td>{{$user->created_at}}</td>
                     <td><a class='btn btn-sm btn-secondary' href='{{route("user-add",["id"=>$user->id])}}'>编辑</a></td>
                 </tr>

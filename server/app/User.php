@@ -18,7 +18,11 @@ class User extends Authenticatable
     use Notifiable;
     use HasRoles;
 
-
+    /**
+     * 用户状态所对应的数字，任何时候都应该从此处取值
+     */
+    const STATE_NORMAL = 1;     //正常
+    const STATE_BAN = 0;        //禁用
 
     /**
      * The attributes that are mass assignable.
@@ -86,6 +90,15 @@ class User extends Authenticatable
 
     public function getStateTextAttribute(){
         return config('project.user.state')[ $this->state ];
+    }
+
+    /**
+     * 翻转用户状态，注意是翻转；正常->禁用；禁用->正常
+     * @return void
+     */
+    public function trunState(){
+        $this->state = $this->state == SELF::STATE_NORMAL ? SELF::STATE_BAN : SELF::STATE_NORMAL;
+        return $this->save();
     }
 }
 

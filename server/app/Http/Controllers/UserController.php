@@ -97,4 +97,21 @@ class UserController extends Controller
         return redirect()->route('user')->with('msg','用户操作成功');
     }
 
+    /**
+     * 切换用户状态（在正常与禁用之间）
+     *
+     * @param Request $r
+     * @return void
+     */
+    public function state(Request $r){
+        $user = User::find($r->input('id',0));
+        if($user){
+            //翻转用户状态
+            $user->trunState();
+            return back()->with('msg', '操作完成');
+        }else{
+            return back()->with('msg', '数据不存在');
+        }
+    }
+
 }

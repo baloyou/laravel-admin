@@ -129,6 +129,8 @@
     </div>
     <!-- /.content-wrapper -->
     </div>
+    @component("components.alert")
+    @endcomponent
 </body>
 
 </html>

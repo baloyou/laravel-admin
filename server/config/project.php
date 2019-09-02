@@ -4,12 +4,12 @@ $project = [];
 $project['admin_path']  = env('ADMIN_PATH', 'admin');
 
 /**
- * user 
+ * user config
  */
 $project['user']['state']  = [
-    0   => '<span class="badge badge-danger">禁用</span>',
-    1   => '<span class="badge badge-success">正常</span>',
+    App\User::STATE_BAN   => '<span class="badge badge-danger">禁用</span>',
+    App\User::STATE_NORMAL   => '<span class="badge badge-success">正常</span>',
 ];
-$project['user']['state_default']  = 1;
+$project['user']['state_default']  = App\User::STATE_NORMAL;
 
 return $project;
