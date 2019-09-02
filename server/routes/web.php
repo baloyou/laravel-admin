@@ -33,11 +33,12 @@ Route::prefix(config('project.admin_path'))->middleware('auth','\App\Http\Middle
     //系统配置（超管）
     Route::prefix('setting')->group(function(){
         //基本配置
-        Route::get('', 'UserController@index')->name('setting');
+        Route::get('', 'SettingController@index')->name('setting');
+        Route::post('', 'SettingController@save')->name('setting-save');
         //平台设置
-        Route::get('platform', 'UserController@platform')->name('platform');
+        Route::get('platform', 'SettingController@platform')->name('platform');
         //账号设置
-        Route::get('account', 'UserController@account')->name('platform-account');
+        Route::get('account', 'SettingController@account')->name('platform-account');
     });
 
     //用户，所有人可见

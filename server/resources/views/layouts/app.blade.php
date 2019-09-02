@@ -59,7 +59,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="pagesDropdown">
 
-                    <a class="dropdown-item" href="login.html">基本设置</a>
+                    <a class="dropdown-item" href="{{route('setting')}}">基本设置</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="register.html">平台设置</a>
                     <a class="dropdown-item" href="forgot-password.html">平台账号</a>

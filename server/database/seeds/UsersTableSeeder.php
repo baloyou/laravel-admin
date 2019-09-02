@@ -18,6 +18,7 @@ class UsersTableSeeder extends Seeder
             'email'  => 'admin2@qq.com',
             'phone'  => '13566667777',
             'password'  => '$2y$10$9LX2HvwNQeEGY9k30YDZR.r75bFYh8u7JWag2QboYMISPDnJkidUq',
+            'state' => 1,
             'created_at' => time(),
             'updated_at' => time(),
         ]);
