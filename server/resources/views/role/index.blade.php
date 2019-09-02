@@ -31,6 +31,7 @@
                     <td>{{$role->created_at}}</td>
                     <td>
                         <a class='btn btn-sm btn-secondary' href='{{route("role-add",["id"=>$role->id])}}'>编辑</a>
+                        <a data-msg='你将删除分组（组内包含用户则不能删除）' class='btn btn-sm btn-warning btn_confirm' data-href='{{route("role-remove",["id"=>$role->id])}}' href='#'>删除</a>
                     </td>
                 </tr>
                 @endforeach

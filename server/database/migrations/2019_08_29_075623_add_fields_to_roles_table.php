@@ -15,7 +15,10 @@ class AddFieldsToRolesTable extends Migration
     {
         Schema::table('roles', function (Blueprint $table) {
             //中文名称，PS：似乎并不需要，放弃吧
-            //$table->string('namecn',150)->after('name');
+            // $table->string('namecn',150)->after('name');
+
+            //创建软删除字段
+            $table->softDeletes();
         });
     }
 

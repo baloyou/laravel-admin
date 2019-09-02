@@ -37,5 +37,16 @@ class RoleValidate extends FormRequest
             'input_pmts' => '分组权限',
         ];
     }
+    /**
+     * 自定义错误消息
+     *
+     * @return void
+     */
+    public function messages()
+    {
+        return [
+            'name.unique' => '分组名称不能重复',
+        ];
+    }
 
 }

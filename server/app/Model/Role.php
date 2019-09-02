@@ -2,12 +2,15 @@
 
 namespace App\Model;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+use League\Flysystem\Exception;
 use Spatie\Permission\Models\Role as SpatieRole;
 
 /**
  * 为了方便管理，做一个自己的 Role
  */
 class Role extends SpatieRole{
+    // use SoftDeletes;
 
     protected $fillable = [
         'name','guard_name'
@@ -48,5 +51,18 @@ class Role extends SpatieRole{
      */
     public function getRoles(){
         return $this->orderBy("id",'asc')->get();
+    }
+
+    /**
+     * 软删除角色（删除之前会检查旗下是否有用户）
+     *
+     * @return void
+     */
+    public function remove(){
+        if( $this->users()->count() > 0 ){
+            tr('旗下包含用户，不能删除');
+        }
+        
+        return $this->delete();
     }
 }

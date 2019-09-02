@@ -84,4 +84,17 @@ class RoleController extends Controller
         }
         return redirect()->route('role')->with('msg','角色操作成功');
     }
+
+    public function remove(Request $r){
+        $role = Role::find( $r->input('id',0) );
+        if(!$role){
+            return back()->with('msg', '角色不存在');
+        }
+        try{
+            $role->remove();
+        }catch(\Exception $e){
+            return back()->with('msg', $e->getMessage());
+        }
+        return redirect()->route('role')->with('msg','角色删除成功');
+    }
 }
