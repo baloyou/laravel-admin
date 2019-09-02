@@ -7,21 +7,48 @@ use App\User;
 use App\Model\Role;
 use Illuminate\Http\Request;
 use App\Services\Std;
+use Illuminate\Support\Collection;
 
 class UserController extends Controller
 {
     public function index(Request $r){
         
-        /**
-         * 根据角色过滤
-         * ->whereHas('roles',function($query){
-         *       $query->where('id',1);
-         *   })
-         */
-        $users = User::with('roles')->orderBy('id','desc')->paginate(15);
+        //定义搜索对象
+        $search = new Std;
+        $search->role_id = (int)$r->input('role_id',0);
+        $search->keyword = $r->input('keyword','');
+
+        $user = User::with('roles');
+        
+        //根据keyword进行模糊查询
+        if( $search->keyword ){
+            $user->where(function($query)use(&$search){
+                $query->where('name', 'like', "%{$search->keyword}%")
+                ->orWhere('email', 'like', "%{$search->keyword}%")
+                ->orWhere('phone', 'like', "%{$search->keyword}%");
+            });
+        }
+
+        //根据角色搜索
+        if($search->role_id>0){
+            $user->whereHas('roles',function($query)use(&$search){
+                $query->where('id', $search->role_id);
+            });
+        }
+
+        $users = $user->orderBy('id','desc')->paginate(15);
+        
+        //生成角色列表菜单，并追加一个“全部”选项
+        $mRole = new Role;
+        $all = new Std;
+        $all->id = 0;
+        $all->name = '全部';
+        $roleMenu = array_merge( [$all], $mRole->getRoles()->all() );
 
         $data = [
-            'users' => $users,
+            'users'     => $users,      //用户信息
+            'roleMenu'  => $roleMenu,   //角色信息
+            'search'    => $search,     //搜索信息
         ];
         
         return view('user.index',$data);
