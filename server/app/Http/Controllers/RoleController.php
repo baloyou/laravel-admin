@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RoleValidate;
 use App\Model\Role;
 use App\Model\Permission;
+use App\Services\Std;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -30,15 +31,19 @@ class RoleController extends Controller
     {
         $id = $r->input('id',0);
         
+        //创建一个空角色对象，用于兼容添加、编辑模式
+        $role = new Std;
+        $role->id = 0;
+
+        //默认选中的权限
+        $permission_ids = [];
+
         // 如果是编辑状态，载入目标数据
-        $role = null;
         if( $id ){
-            $mRole = new Role;
-            $role = $mRole->where('id',$id)->first();
+            $role = Role::find($id);
             if(!$role){
                 return redirect()->route('role')->with('msg', '目标角色不存在!');
             }
-            $permission_ids = [];
             $role->permissions()->get()->each(function($v, $k)use(&$permission_ids){
                 $permission_ids[] = $v->id;
             });
@@ -47,8 +52,8 @@ class RoleController extends Controller
         //用于显示表单，优先显示old，其次如果有数据库信息则显示，否则显示默认值
         $form = [
             'id'    => $id,
-            'name'  => old('name', $role ? $role->name : ''),
-            'input_pmts'  => old('input_pmts', $role ? $permission_ids : []),
+            'name'  => old('name', $role->name),
+            'input_pmts'  => old('input_pmts', $permission_ids),
         ];
 
         //模板中显示的树结构

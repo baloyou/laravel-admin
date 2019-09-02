@@ -6,8 +6,7 @@ use App\Http\Requests\UserValidate;
 use App\User;
 use App\Model\Role;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use App\Services\Std;
 
 class UserController extends Controller
 {
@@ -32,15 +31,20 @@ class UserController extends Controller
     {
         $id = $r->input('id',0);
         
+        //定义一个user空对象，用于兼容在编辑、添加模式下的用户字段处理
+        $user = new Std;
+        $user->state = config('project.user.state_default');
+
+        //默认选中的角色ids
+        $role_ids = [];
+
         // 如果是编辑状态，载入目标数据
-        $user = null;
         if( $id ){
             $mUser = new User;
             $user = $mUser->where('id',$id)->first();
             if(!$user){
                 return redirect()->route('user')->with('msg', '目标角色不存在!');
             }
-            $role_ids = [];
             $user->roles()->get()->each(function($v, $k)use(&$role_ids){
                 $role_ids[] = $v->id;
             });
@@ -49,12 +53,19 @@ class UserController extends Controller
         //用于显示表单，优先显示old，其次如果有数据库信息则显示，否则显示默认值
         $form = [
             'id'    => $id,
-            'name'  => old('name', $user ? $user->name : ''),
-            'login_name'  => old('login_name', $user ? $user->login_name : ''),
+            'name'  => old('name', $user->name),
+            'login_name'  => old('login_name', $user->login_name),
             'password'  => old('password'), //密码就只考虑历史数据
-            'email'  => old('email', $user ? $user->email : ''),
-            'phone'  => old('phone', $user ? $user->phone : ''),
-            'input_roles'  => old('input_roles', $user ? $role_ids : []),
+            'email'  => old('email', $user->email),
+            'phone'  => old('phone', $user->phone),
+            'input_roles'  => old('input_roles', $role_ids),
+            
+            //用户状态
+            'user_state'    => [
+                    'default'   => old('user_state', $user->state ),
+                    'data'      => config('project.user.state'),
+                    'name'      => 'state',
+                ]
         ];
 
         //模板中显示的分组
@@ -77,7 +88,8 @@ class UserController extends Controller
         //数据写入
         try {
             $user = new User();
-            $user = $user->in($r->all());
+            $data = $r->all();
+            $user = $user->in($data);
 
         } catch (\Exception $e) {
             return back()->with('msg', $e->getMessage());

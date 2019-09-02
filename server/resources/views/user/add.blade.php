@@ -71,23 +71,32 @@
                 <label for="name" class="col-sm-2 col-form-label">归属分组</label>
                 <div class='col-sm-10 pmt_checkbox'>
                     @foreach($roles as $role)
-                    <?php 
-            $ed = array_search($role->id, $form["input_roles"]) !== false ? ' checked' : '';
+                    <?php
+                    $ed = array_search($role->id, $form["input_roles"]) !== false ? ' checked' : '';
                     ?>
                     <div class="form-check form-check-inline">
-                        <input name='input_roles[]' class="form-check-input" type="checkbox" id="box{{$role->id}}" data-id='{{$role->id}}' value="{{$role->id}}"{{$ed}}>
+                        <input name='input_roles[]' class="form-check-input" type="checkbox" id="box{{$role->id}}" data-id='{{$role->id}}' value="{{$role->id}}" {{$ed}}>
                         <label class="form-check-label" for="box{{$role->id}}">
                             <span>{{$role->name}}</span>
                         </label>
                     </div>
                     @endforeach
-                @if($errors->has('input_roles'))
+                    @if($errors->has('input_roles'))
                     <p class='text-danger form-error'>{{$errors->first('input_roles')}}</p>
-                @endif
+                    @endif
                 </div>
             </div>
 
             <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">状态</label>
+                <div class="col-sm-10">
+                    @component('components.select',['data'=>$form["user_state"]])
+                    @endcomponent
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label"></label>
                 <div class="col-sm-10">
                     <button type="submit" class="btn btn-primary">保存</button>
                 </div>

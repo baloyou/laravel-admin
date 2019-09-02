@@ -39,6 +39,7 @@
                     <th scope="col">登录名</th>
                     <th scope="col">email</th>
                     <th scope="col">手机号</th>
+                    <th scope="col">状态</th>
                     <th scope="col">创建日期</th>
                     <th scope="col">管理</th>
                 </tr>
@@ -58,6 +59,7 @@
                     <td>{{$user->login_name}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->phone}}</td>
+                    <td>{!!$user->state_text!!}</td>
                     <td>{{$user->created_at}}</td>
                     <td><a class='btn btn-sm btn-secondary' href='{{route("user-add",["id"=>$user->id])}}'>编辑</a></td>
                 </tr>

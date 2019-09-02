@@ -18,13 +18,15 @@ class User extends Authenticatable
     use Notifiable;
     use HasRoles;
 
+
+
     /**
      * The attributes that are mass assignable.
      * 想使用 $r->all() 简洁插入，这个设置必不可少（不在此列的字段不允许更新和写入）
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','login_name','phone',
+        'name', 'email', 'password','login_name','phone','state',
     ];
 
     /**
@@ -56,6 +58,8 @@ class User extends Authenticatable
     public function in(array $data){
 
         $user_id = $data['id'];
+
+        //选中的角色
         $roles = is_array($data['input_roles']) ? $data['input_roles'] : [];
 
         //如果处于编辑模式，并且密码字段为空，密码保持原样
@@ -78,6 +82,10 @@ class User extends Authenticatable
         $roles = Role::whereIn('id', $roles)->get();
         $user->assignRole($roles);
         return $user;
+    }
+
+    public function getStateTextAttribute(){
+        return config('project.user.state')[ $this->state ];
     }
 }
 

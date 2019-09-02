@@ -18,6 +18,8 @@ class AddLoginNameToUsersTable extends Migration
             $table->string('login_name',100)->after('name')->unique()->default('');
             //手机号
             $table->string('phone',50)->after('email')->unique()->default('');
+            //状态(0=禁用，1=正常)
+            $table->unsignedTinyInteger('state')->after('remember_token')->default(0);
         });
     }
 

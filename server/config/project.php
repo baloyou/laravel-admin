@@ -1,7 +1,15 @@
 <?php
+
+$project = [];
+$project['admin_path']  = env('ADMIN_PATH', 'admin');
+
 /**
- * 项目配置文件
+ * user 
  */
-return [
-    'admin_path'    => env('ADMIN_PATH', 'admin'),
+$project['user']['state']  = [
+    0   => '<span class="badge badge-danger">禁用</span>',
+    1   => '<span class="badge badge-success">正常</span>',
 ];
+$project['user']['state_default']  = 1;
+
+return $project;

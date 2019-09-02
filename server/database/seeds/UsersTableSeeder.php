@@ -34,7 +34,7 @@ class UsersTableSeeder extends Seeder
         ]);
         
         // 目标id = 3
-        for($i=0;$i<50;$i++){
+        for($i=0;$i<10;$i++){
             App\User::create([
                 'name'  => '测试'.$i,
                 'login_name'  => 'test'.$i,
