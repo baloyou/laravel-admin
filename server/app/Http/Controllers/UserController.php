@@ -8,6 +8,7 @@ use App\Model\Role;
 use Illuminate\Http\Request;
 use App\Services\Std;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -132,6 +133,9 @@ class UserController extends Controller
      */
     public function state(Request $r){
         $user = User::find($r->input('id',0));
+        if( $user->id == Auth::id() ){
+            return back()->with('msg', '你不能修改你自己的状态！');
+        }
         if($user){
             //翻转用户状态
             $user->trunState();
