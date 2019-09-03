@@ -30,6 +30,7 @@ class UsersTableSeeder extends Seeder
             'email'  => 'test@qq.com',
             'phone'  => '13144445555',
             'password'  => '$2y$10$9LX2HvwNQeEGY9k30YDZR.r75bFYh8u7JWag2QboYMISPDnJkidUq',
+            'state' => 1,
             'created_at' => time(),
             'updated_at' => time(),
         ]);
@@ -41,6 +42,7 @@ class UsersTableSeeder extends Seeder
                 'login_name'  => 'test'.$i,
                 'email'  => $i.'test@qq.com',
                 'phone'  => "1331234".mt_rand(1000,9999),
+                'state' => 1,
                 'password'  => '$2y$10$9LX2HvwNQeEGY9k30YDZR.r75bFYh8u7JWag2QboYMISPDnJkidUq',
                 'created_at' => time(),
                 'updated_at' => time(),

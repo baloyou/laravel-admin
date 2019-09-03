@@ -14,7 +14,7 @@
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     <script src="https://cdn.bootcss.com/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src='https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js'></script>
-    <script src="{{ asset('js/sb-admin.min.js') }}"></script>
+    <script src="{{ asset('js/sb-admin.min.js') }}?<?php echo microtime();?>" defer></script>
     <!-- Styles -->
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/blackrockdigital.css') }}" rel="stylesheet">

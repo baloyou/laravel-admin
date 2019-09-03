@@ -31,10 +31,15 @@ Route::prefix(config('project.admin_path'))->middleware('auth','\App\Http\Middle
     Route::get('home', 'HomeController@index')->name('home');
 
     //系统配置（超管）
-    Route::prefix('setting')->group(function(){
+    Route::prefix('setting')->middleware('permission:setting')->group(function(){
+        
         //基本配置
-        Route::get('', 'SettingController@index')->name('setting');
-        Route::post('', 'SettingController@save')->name('setting-save');
+        Route::get('', 'SettingController@index')->name('setting')
+            ->middleware('permission:setting-list');
+
+        Route::post('', 'SettingController@save')->name('setting-save')
+            ->middleware('permission:setting-manager');
+        
         //平台设置
         Route::get('platform', 'SettingController@platform')->name('platform');
         //账号设置
@@ -42,47 +47,52 @@ Route::prefix(config('project.admin_path'))->middleware('auth','\App\Http\Middle
     });
 
     //用户，所有人可见
-    Route::prefix('user')->group(function(){
+    Route::prefix('user')->middleware('permission:user')->group(function(){
+        
         //用户列表（自己、旗下用户）
-        Route::get('', 'UserController@index')->name('user');
-        //增加用户（超管）
-        Route::get('add', 'UserController@add')->name('user-add');
-        Route::post('save', 'UserController@save')->name('user-save');
-        //编辑用户（自己/超管）
-        // Route::get('modify', 'UserController@modify')->name('user-modify');
-        //禁用用户（超管）
-        Route::get('state', 'UserController@state')->name('user-state');
+        Route::get('', 'UserController@index')->name('user')
+            ->middleware('permission:user-list');
+        
+        //用户管理
+        Route::middleware('permission:user-manager')->group(function(){
+            Route::get('add', 'UserController@add')->name('user-add');
+            Route::post('save', 'UserController@save')->name('user-save');
+            Route::get('state', 'UserController@state')->name('user-state');
+        });
+        
         //用户详细（自己、旗下用户）
         Route::get('detail', 'UserController@detail')->name('user-detail');
     });
 
     //用户组（超管权限）
-    Route::prefix('role')->group(function(){
+    Route::prefix('role')->middleware('permission:role')->group(function(){
+        
         //列表
-        Route::get('', 'RoleController@index')->name('role');
-        //添加
-        Route::get('add', 'RoleController@add')->name('role-add');
-        //编辑
-        // Route::get('modify', 'RoleController@modify')->name('role-modify');
-        //保存修改结果（添加 and 修改，都是走这个方法）
-        Route::post('save', 'RoleController@save')->name('role-save');
-        //软删除（如果旗下有用户，则不能删除）
-        Route::get('remove', 'RoleController@remove')->name('role-remove');
+        Route::get('', 'RoleController@index')->name('role')
+            ->middleware('permission:role-list');
+
+        //管理
+        Route::middleware('permission:role-manager')->group(function(){
+            Route::get('add', 'RoleController@add')->name('role-add');
+            Route::post('save', 'RoleController@save')->name('role-save');
+            Route::get('remove', 'RoleController@remove')->name('role-remove');
+        });
+
     });
 
     //数据管理（稿件）
-    Route::prefix('article')->group(function(){
+    Route::prefix('article')->middleware('permission:article')->group(function(){
         //列表（每个人可查看自己的文章、自己直属下级的文章）
-        Route::get('', 'ArticleController@index')->name('article');
-        //添加（每个人都可以加）
-        Route::get('add', 'ArticleController@add')->name('article-add');
+        Route::get('', 'ArticleController@index')->name('article')->middleware('permission:article-list');
+        //添加和编辑（每个人都可以加）
+        Route::get('add', 'ArticleController@add')->name('article-add')->middleware('permission:article-manager');
         
         /**
          * 编辑
          * 当处于草稿、返修状态时，可见人即可编辑
          * 当处于其他状态时，只有上级管理员、超级管理员可编辑
          */
-        Route::get('modify', 'ArticleController@modify')->name('article-modify');
+        // Route::get('modify', 'ArticleController@modify')->name('article-modify');
         
         /**
          * 状态流转

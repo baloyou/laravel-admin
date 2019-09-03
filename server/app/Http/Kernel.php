@@ -62,7 +62,11 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         // ...
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+
+        // spatie 越权时直接跳转到403，并且没有提供自定义接口，想改只能自定义中间件
+        // 不过涉及到3个中间件，差不多10+提示，改起来稍微麻烦点，就先不动了
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        // 'permission' => \App\Http\Middleware\UserPermission::class,
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
     ];
 
