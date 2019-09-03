@@ -12,6 +12,8 @@
 
 注意：`@can(策略)` 必须事先注册，我“怀疑”permission表中的权限列表，已经被注册过了。
 
+注意：如果想自定义权限错误页，需要在kernel.php中修改中间件的实现。
+
 ```
 if( !can('article-list') ){
     die('无权限')
@@ -24,6 +26,16 @@ if( !can('article-list') ){
 ### 超级管理员
 
 目前在 `AuthServiceProvider::boot()` 中通过 `Gate::before` 定义user id = 1为超级管理员，所有权限对其不生效（包括路由定义的、can() 方法定义的）
+
+## 系统配置
+
+```
+app/services/settingManager.php 是工具类
+app/facades/settingFacade.php 是门面
+config/app.php aliases 中配置了快捷路径
+
+\Setting::get/set/all/save 用于日常操作权限
+```
 
 ## 提示框
 
@@ -62,3 +74,4 @@ $data = [
 @component('components.select',['data'=>$data])
 @endcomponent
 ```
+
