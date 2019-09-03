@@ -79,7 +79,7 @@ Route::prefix(config('project.admin_path'))->middleware('auth','\App\Http\Middle
         });
 
     });
-
+    
     //数据管理（稿件）
     Route::prefix('article')->middleware('permission:article')->group(function(){
         //列表（每个人可查看自己的文章、自己直属下级的文章）

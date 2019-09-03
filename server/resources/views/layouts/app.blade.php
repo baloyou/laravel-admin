@@ -52,44 +52,26 @@
                     <span>控制中心</span>
                 </a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>系统设置</span>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
 
-                    <a class="dropdown-item" href="{{route('setting')}}">基本设置</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="register.html">平台设置</a>
-                    <a class="dropdown-item" href="forgot-password.html">平台账号</a>
-
-                </div>
-            </li>
+            <?php
+            //取菜单列表，此处可以做缓存，能够有效的提高速度
+            $menu = new \App\Model\Menu;
+            $data = $menu->tree();
+            ?>
+            @foreach($data as $item)
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>用户管理</span>
+                    <i class="fas fa-fw {{$item['data']->icon}}"></i>
+                    <span>{{$item['data']->name}}</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                    <a class="dropdown-item" href="{{route('user')}}">所有用户</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{route('role')}}">分组管理</a>
-                    <!-- <a class="dropdown-item" href="forgot-password.html">权限查看</a> -->
+                    @foreach($item['childs'] as $item2)
+                    <a class="dropdown-item" href="{{$item2->link}}">{{$item2->name}}</a>
+                    @endforeach
                 </div>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-fw fa-file-word"></i>
-                    <span>稿件管理</span>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                    <a class="dropdown-item" href="login.html">所有稿件</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="register.html">待审稿件</a>
-                    <a class="dropdown-item" href="forgot-password.html">待发稿件</a>
-                </div>
-            </li>
+            @endforeach
+            
         </ul>
         <div id="content-wrapper">
             <div class="container-fluid">

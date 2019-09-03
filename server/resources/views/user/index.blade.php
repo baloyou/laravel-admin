@@ -5,9 +5,12 @@
 @component('components.subtitle')
 <i class="fas fa-users fa-fw"></i> 所有用户
 @slot('bnts')
+@can('user-manager')
 <a href='{{route("user-add")}}' class='btn btn-primary'>
     <i class="fas fa-plus-square fa-fw"></i> 添加
 </a>
+@endcan
+
 @endslot
 @endcomponent
 
@@ -24,12 +27,12 @@
                 <div class=' col-auto ml-auto'>
                     <div class="btn-group" role="group" aria-label="Basic example">
                         @foreach($roleMenu as $role)
-                        <?php $ed = $search->role_id == $role->id ? '' : '-outline';?>
+                        <?php $ed = $search->role_id == $role->id ? '' : '-outline'; ?>
                         <a href='{{route("user",["role_id"=>$role->id])}}' class="btn btn{{$ed}}-primary">{{$role->name}}</a>
                         @endforeach
                     </div>
                 </div>
-                
+
             </div>
         </form>
     </div>
@@ -63,9 +66,19 @@
                     <td>{{$user->login_name}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->phone}}</td>
-                    <td><a href='#' class='btn_confirm' data-msg='你正在切换用户状态（被禁用的账号不能登陆系统）' data-href='{{route("user-state",["id"=>$user->id])}}'>{!!$user->state_text!!}</a></td>
+                    <td>
+                    @can('user-manager')
+                        <a href='#' class='btn_confirm' data-msg='你正在切换用户状态（被禁用的账号不能登陆系统）' data-href='{{route("user-state",["id"=>$user->id])}}'>{!!$user->state_text!!}</a>
+                    @else 
+                        {!!$user->state_text!!}
+                    @endcan
+                    </td>
                     <td>{{$user->created_at}}</td>
-                    <td><a class='btn btn-sm btn-secondary' href='{{route("user-add",["id"=>$user->id])}}'>编辑</a></td>
+                    <td>
+                    @can('user-manager')
+                        <a class='btn btn-sm btn-secondary' href='{{route("user-add",["id"=>$user->id])}}'>编辑</a>
+                    @endcan
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
